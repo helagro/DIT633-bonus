@@ -24,6 +24,7 @@ int main(const int argc, const char *argv[]){
     } else if (nameLength > MAX_NAME_LENGTH){
         printf("Name too long, max %d characters\n", MAX_NAME_LENGTH);
         
+    // If the first agrument length is good
     } else {
         printf("Hello %s, how is your day today?\n", argv[1]);
     }
