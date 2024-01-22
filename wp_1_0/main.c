@@ -18,7 +18,7 @@ int main(const int argc, const char **argv) {
     int zeros = 0;
     int ones = 0;
 
-    const int s = sizeof(u_int32_t) * 8 + 1;
+    const int s = sizeof(u_int32_t) * 8 + 2;
     for (int i2 = 0; i < s; i++) {
         const int bit = (n & flipper) != 0;
 
