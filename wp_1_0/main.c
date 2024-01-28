@@ -53,7 +53,7 @@ int main(const int argc, const char **argv) {
 
         if (ones > 0)   // if we have "found" atleast one *one*
             printf("%d", bit);
-        n = n << 1;   // shift n one step to the right
+        n = n << 1;   // shift n one step to the left
     }
 
     printf("\nNumber of 0s: %d\nNumber of 1s: %d\n", zeros, ones);
