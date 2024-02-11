@@ -23,12 +23,11 @@ _Bool isNlOrEof(char c) {
 /* ------------------------ OTHER FUNCTIONS ----------------------- */
 
 // defines a function that prints the sum of two matrices
-void printSum(int *matrix1, int *matrix2, SIZE *s) {
+void printSum(int *matrix1[], int *matrix2[], SIZE *s) {
     for (int y = 0; y < s->h; y++) {   // iterates through the rows of the matrix
         for (int x = 0; x < s->w; x++) {   // iterates through the columns of the matrix
-            printf("%d ", *matrix1 + *matrix2);   // prints the sum of the cells of the two matrices
-            matrix1++;   // increments the pointer to the first matrix
-            matrix2++;   // increments the pointer to the second matrix
+            // prints the sum of the cells of the two matrices
+            printf("%d ", *(matrix1[y] + x) + *(matrix2[y] + x));
         }
         putchar('\n');   // prints a newline character
     }
@@ -104,10 +103,12 @@ int main() {
         return 0;   // quit the program
 
     printf("Input the matrix1: ");
-    int *matrix1 = getMatrix(&s);   // reads the first matrix from the standard input
+    // reads the first matrix from the standard input
+    int(*matrix1)[s.h] = (int(*)[s.h]) getMatrix(&s);
 
     printf("Input the matrix2: ");
-    int *matrix2 = getMatrix(&s);   // reads the second matrix from the standard input
+    // reads the second matrix from the standard input
+    int(*matrix2)[s.h] = (int(*)[s.h]) getMatrix(&s);
 
     if (matrix1 == NULL || matrix2 == NULL) {   // if the matrices were not read successfully
         printf("Invalid input or failed to generate matrix\n");
