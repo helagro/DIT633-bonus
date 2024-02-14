@@ -29,7 +29,7 @@ void fillPermutations(unsigned int i) {
         *(++permsPtr) = malloc(sizeof(char) * letters);
         strcpy(*permsPtr, refWord);
         printf("%u %s\n", i2, *permsPtr);
-        swap(*permsPtr[0], *permsPtr[i]);
+        swap(&((*permsPtr)[0]), &((*permsPtr)[++i2]));
     } while (i2 < letters);
 
     // permsPtr
