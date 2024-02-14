@@ -15,12 +15,12 @@ void swap(char *c1, char *c2) {
 }
 
 void fillPermutations(unsigned int i) {
-    if (i == letters)
+    if (i == letters - 1)
         return;
 
     fprintf(stderr, "\nSees %s out of %s With %d\n", &((*permsPtr)[i]), *permsPtr, i);
 
-    unsigned int i2 = i;
+    unsigned int i2 = i + 1;
     char *refWord = *permsPtr;
 
     do {
@@ -28,8 +28,7 @@ void fillPermutations(unsigned int i) {
         fillPermutations(i + 1);
         *(++permsPtr) = malloc(sizeof(char) * letters);
         strcpy(*permsPtr, refWord);
-        printf("%u %s\n", i2, *permsPtr);
-        swap(&((*permsPtr)[0]), &((*permsPtr)[++i2]));
+        swap(&((*permsPtr)[i]), &((*permsPtr)[i2++]));
     } while (i2 < letters);
 
     // permsPtr
