@@ -21,16 +21,16 @@ void fillPermutations(unsigned int i) {
     fprintf(stderr, "\nSees %s out of %s With %d\n", &((*permsPtr)[i]), *permsPtr, i);
 
     unsigned int i2 = i;
-    char *refWord = *permsPtr, *permPtr = &(refWord[i]);
+    char *refWord = *permsPtr;
 
     do {
         // printf("%s ", refWord);
         // fillPermutations(i + 1);
         *(++permsPtr) = malloc(sizeof(char) * letters);
         strcpy(*permsPtr, refWord);
-        printf("%p %s\n", permPtr, *permsPtr);
-        *permsPtr[0] = *(++permPtr);
-    } while (*(permPtr) != '\0');
+        printf("%u %s\n", i2, *permsPtr);
+        swap(*permsPtr[0], *permsPtr[i]);
+    } while (i2 < letters);
 
     // permsPtr
     // shuffle, give pointer to new one which will be overwritten, return where to continue writing
