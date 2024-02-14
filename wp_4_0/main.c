@@ -4,7 +4,7 @@
 
 #define MAX_INPUT 21
 
-unsigned short permsS, p = 1, letters = 0;
+unsigned int permsS, p = 1, letters = 0;
 char **perms, **permsPtr;
 char c;
 
@@ -14,20 +14,22 @@ void swap(char *c1, char *c2) {
     *c1 = tmp;
 }
 
-void fillPermutations(unsigned short i) {
+void fillPermutations(unsigned int i) {
     if (i == letters)
         return;
 
-    printf("\nSees %s\n", &((*permsPtr)[i]));
+    fprintf(stderr, "\nSees %s out of %s With %d\n", &((*permsPtr)[i]), *permsPtr, i);
 
+    unsigned int i2 = i;
     char *refWord = *permsPtr, *permPtr = &(refWord[i]);
 
     do {
-        printf("%s ", refWord);
+        // printf("%s ", refWord);
+        // fillPermutations(i + 1);
         *(++permsPtr) = malloc(sizeof(char) * letters);
         strcpy(*permsPtr, refWord);
-        fillPermutations(i + 1);
-        swap(++permPtr, refWord);
+        printf("%p %s\n", permPtr, *permsPtr);
+        *permsPtr[0] = *(++permPtr);
     } while (*(permPtr) != '\0');
 
     // permsPtr
@@ -38,7 +40,7 @@ void fillPermutations(unsigned short i) {
 void freePerms() {
     char **c = perms;
     while (c < perms + permsS && *c != NULL) {
-        printf("Freed \"%s\"\n", *c);
+        printf("Freed \"%s at %p\"\n", *c, c);
         free(*(c++));
     }
 
@@ -69,7 +71,6 @@ int main(int argv, char **argc) {
 
     fillPermutations(0);
 
-    printf("%d", p);
     for (int i = 0; i < p; i++)
         printf("%d: %s\n", i, perms[i]);
 
