@@ -25,7 +25,7 @@ void fillPermutations(unsigned int i) {
 
     do {
         // printf("%s ", refWord);
-        // fillPermutations(i + 1);
+        fillPermutations(i + 1);
         *(++permsPtr) = malloc(sizeof(char) * letters);
         strcpy(*permsPtr, refWord);
         printf("%u %s\n", i2, *permsPtr);
