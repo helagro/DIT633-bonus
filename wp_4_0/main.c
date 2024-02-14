@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_INPUT 21
+#define MAX_INPUT 11
 
-unsigned int permsS, p = 1, letters = 0;
+// calc refPtr using letters - i
+
+unsigned int p = 1, letters = 0;
 char **perms, **permsPtr;
-char c;
 
 void swap(char *c1, char *c2) {
     char tmp = *c2;
@@ -14,36 +15,26 @@ void swap(char *c1, char *c2) {
     *c1 = tmp;
 }
 
+char *dupStr(char *src) {
+    char *ptr = malloc(sizeof(char) * letters);
+    strcpy(ptr, src);
+    return ptr;
+}
+
 void fillPermutations(unsigned int i) {
     if (i == letters - 1)
         return;
 
-    fprintf(stderr, "\nSees %s out of %s With %d\n", &((*permsPtr)[i]), *permsPtr, i);
-
-    unsigned int i2 = i;
-    char *refWord = *permsPtr;
+    unsigned int i2 = i + 1;
 
     do {
-        // printf("%s ", refWord);
-        swap(&((*permsPtr)[i]), &((*permsPtr)[i2]));
         fillPermutations(i + 1);
-        *(++permsPtr) = malloc(sizeof(char) * letters);
-        strcpy(*permsPtr, refWord);
+        *(permsPtr + 1) = dupStr(*permsPtr);
+        permsPtr++;
+        swap(&((*permsPtr)[i]), &((*permsPtr)[letters - 1]));
     } while (++i2 < letters);
 
-    // permsPtr
-    // shuffle, give pointer to new one which will be overwritten, return where to continue writing
-    // each makes sure to provide each shuffle of its letter
-}
-
-void freePerms() {
-    char **c = perms;
-    while (c < perms + permsS && *c != NULL) {
-        printf("Freed \"%s at %p\"\n", *c, c);
-        free(*(c++));
-    }
-
-    free(perms);
+    fillPermutations(i + 1);
 }
 
 int main(int argv, char **argc) {
@@ -63,15 +54,16 @@ int main(int argv, char **argc) {
         }
     } while (argc[1][firstArgI] != '\0');
 
-    permsS = p * sizeof(char *);
-    perms = permsPtr = malloc(permsS);
+    perms = permsPtr = malloc(p * sizeof(char *));
     *permsPtr = malloc(sizeof(char) * letters);
     strcpy(*permsPtr, argc[1]);
 
     fillPermutations(0);
 
-    for (int i = 0; i < p; i++)
+    for (int i = 0; i < p; i++) {
         printf("%d: %s\n", i, perms[i]);
+        free(perms[i]);
+    }
 
-    freePerms();
+    free(perms);
 }
