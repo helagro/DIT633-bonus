@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>   // includes standard input/output library
 #include <string.h>
 
 #define INPUT_AMT     5
@@ -48,6 +47,10 @@ void readStr(char input[INPUT_AMT][MAX_WORD_SIZE]) {
 int main() {
     char input[INPUT_AMT][MAX_WORD_SIZE];
     readStr(input);
+    printf("Array before removal:\n");
+    for (unsigned char i = 0; i < INPUT_AMT; i++)
+        printf("%s\n", input[i]);
+
     char **res = popShortest(input);
 
     printf("Array after removal:\n");
